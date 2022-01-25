@@ -1,14 +1,8 @@
 #!/usr/bin/env node
 
-// This must be performed before anything else in order for
-// please-upgrade-node to work properly.
-const pkg = require('../package.json');
-require('please-upgrade-node')(pkg);
-
 const fs = require('fs');
 const { createRequire } = require('module');
 const path = require('path');
-const chalk = require('chalk');
 const spawn = require('cross-spawn');
 
 const workingDirectoryRequire = createRequire(path.resolve(process.cwd(), 'index.js'));
@@ -16,10 +10,8 @@ const workingDirectoryRequire = createRequire(path.resolve(process.cwd(), 'index
 try {
 	workingDirectoryRequire('eslint');
 } catch (x) {
-	console.error(chalk.red('eslint was not found.'));
-	console.error(
-		chalk.red('suppress-eslint-errors requires eslint to be installed in the working directory.')
-	);
+	console.error('eslint was not found.');
+	console.error('suppress-eslint-errors requires eslint to be installed in the working directory.');
 	process.exit(1);
 }
 
@@ -36,11 +28,9 @@ if (fs.existsSync(gitignorePath)) {
 			.findIndex((line) => line.startsWith('!')) !== -1
 	) {
 		console.warn(
-			chalk.yellow(
-				'your .gitignore contains exclusions, which jscodeshift does not properly support.'
-			)
+			'your .gitignore contains exclusions, which jscodeshift does not properly support.'
 		);
-		console.warn(chalk.yellow('skipping the ignore-config option.'));
+		console.warn('skipping the ignore-config option.');
 	} else {
 		gitignoreArguments.push(`--ignore-config=.gitignore`);
 	}

@@ -25,10 +25,8 @@
     "access": "public"
   },
   "dependencies": {
-    "chalk": "^5.0.0",
     "cross-spawn": "^7.0.3",
-    "jscodeshift": "^0.13.1",
-    "please-upgrade-node": "^3.1.1"
+    "jscodeshift": "^0.13.1"
   },
   "devDependencies": {
     "eslint-plugin-import": "^2.22.1",
