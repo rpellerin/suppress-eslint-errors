@@ -2,14 +2,14 @@ const { createRequire } = require('module');
 const path = require('path');
 
 const workingDirectoryRequire = createRequire(path.resolve(process.cwd(), 'index.js'));
-const { CLIEngine } = workingDirectoryRequire('eslint');
+const { ESLint } = workingDirectoryRequire('eslint');
 
 const eslintDisableRegexp = /^\s*eslint-disable-next-line(\s|$)(.*)/;
 
-module.exports = function codeMod(file, api, options) {
-	const { results } = new CLIEngine({
+module.exports = async function codeMod(file, api, options) {
+	const results = await new ESLint({
 		baseConfig: options.baseConfig ? JSON.parse(options.baseConfig) : null,
-	}).executeOnText(file.source, file.path);
+	}).lintText(file.source, { filePath: file.path });
 
 	if (!results || !results[0] || !results[0].messages) {
 		return;
