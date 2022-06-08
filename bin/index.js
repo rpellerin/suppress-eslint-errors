@@ -38,7 +38,7 @@ if (fs.existsSync(gitignorePath)) {
 
 const result = spawn.sync(
 	'node',
-	[jscodeshiftPath, '--no-babel', '-t', transformPath]
+	[jscodeshiftPath, '--no-babel', '--parser=tsx', '-t', transformPath]
 		.concat(gitignoreArguments)
 		.concat(process.argv.slice(2)),
 	{
